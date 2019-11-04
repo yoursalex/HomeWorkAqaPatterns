@@ -18,10 +18,14 @@ public class CardDeliveryTests {
     private String city;
     private String invalidCity;
     private String deliveryDay;
+    private String invalidDate;
     private String newDeliveryDay;
     private Faker faker;
     private Faker fakerEng;
-    private String invalidDate;
+    private String firstName;
+    private String lastName;
+    private String phone;
+
 
 
     @BeforeEach
@@ -40,15 +44,17 @@ public class CardDeliveryTests {
         deliveryDay = todayPlusThreeDays.format(formatter);
         invalidDate = today.format(formatter);
         newDeliveryDay = todayPlusThreeDays.plusDays(5).format(formatter);
+
+        firstName = faker.name().firstName().replace("ё", "е");
+        lastName = faker.name().lastName().replace("ё", "е");
+
+        phone = faker.phoneNumber().cellPhone();
 }
 
     @Test
     @DisplayName("Должен успешно отправлять первичную заявку при валидных данных")
     void shouldSubmitFirstRequest() {
         open("http://localhost:9999/");
-        String firstName = faker.name().firstName().replace("ё", "е");
-        String lastName = faker.name().lastName().replace("ё", "е");
-        String phone = faker.phoneNumber().cellPhone();
 
         $("[data-test-id=city] input.input__control").setValue(city);
         $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
@@ -64,9 +70,6 @@ public class CardDeliveryTests {
     @DisplayName("Должен подтверждать смену даты доставки")
     void shouldConfirmNewDeliveryDate() {
         open("http://localhost:9999/");
-        String firstName = faker.name().firstName().replace("ё", "е");
-        String lastName = faker.name().lastName().replace("ё", "е");
-        String phone = faker.phoneNumber().cellPhone();
 
         $("[data-test-id=city] input.input__control").setValue(city);
         $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
@@ -87,9 +90,6 @@ public class CardDeliveryTests {
     @DisplayName("Не должен подтверждать заказ при вводе невалидного города")
     void shouldNotSubmitWithInvalidCity() {
         open("http://localhost:9999/");
-        String firstName = faker.name().firstName().replace("ё", "е");
-        String lastName = faker.name().lastName().replace("ё", "е");
-        String phone = faker.phoneNumber().cellPhone();
 
         $("[data-test-id=city] input.input__control").setValue(invalidCity);
         $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
@@ -105,9 +105,6 @@ public class CardDeliveryTests {
     @DisplayName("Не должен подтверждать заказ при вводе невалидной даты")
     void shouldNotSubmitWithInvalidDate() {
         open("http://localhost:9999/");
-        String firstName = faker.name().firstName().replace("ё", "е");
-        String lastName = faker.name().lastName().replace("ё", "е");
-        String phone = faker.phoneNumber().cellPhone();
 
         $("[data-test-id=city] input.input__control").setValue(city);
         $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
@@ -123,9 +120,8 @@ public class CardDeliveryTests {
     @DisplayName("Не должен подтверждать заказ при вводе невалидного имени")
     void shouldNotSubmitWithInvalidName() {
         open("http://localhost:9999/");
-        String firstName = fakerEng.name().firstName();
-        String lastName = fakerEng.name().lastName();
-        String phone = faker.phoneNumber().cellPhone();
+        firstName = fakerEng.name().firstName();
+        lastName = fakerEng.name().lastName();
 
         $("[data-test-id=city] input.input__control").setValue(city);
         $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
@@ -141,9 +137,7 @@ public class CardDeliveryTests {
     @DisplayName("Не должен подтверждать заказ при вводе невалидного номера телефона") //заведомо провалится, т.к.есть баг
     void shouldNotSubmitWithInvalidPhone() {
         open("http://localhost:9999/");
-        String firstName = faker.name().firstName().replace("ё", "е");
-        String lastName = faker.name().lastName().replace("ё", "е");
-        String phone = "99911122";
+        phone = "99911122";
 
         $("[data-test-id=city] input.input__control").setValue(city);
         $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
@@ -159,9 +153,6 @@ public class CardDeliveryTests {
     @DisplayName("Не должен отправлять заявку без указания города")
     void shouldNotSubmitWithEmptyCity() {
         open("http://localhost:9999/");
-        String firstName = faker.name().firstName().replace("ё", "е");
-        String lastName = faker.name().lastName().replace("ё", "е");
-        String phone = faker.phoneNumber().cellPhone();
 
         $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
         $("[data-test-id=date] input.input__control").setValue(deliveryDay);
@@ -176,9 +167,6 @@ public class CardDeliveryTests {
     @DisplayName("Не должен отправлять заявку без указания даты")
     void shouldNotSubmitWithEmptyDate() {
         open("http://localhost:9999/");
-        String firstName = faker.name().firstName().replace("ё", "е");
-        String lastName = faker.name().lastName().replace("ё", "е");
-        String phone = faker.phoneNumber().cellPhone();
 
         $("[data-test-id=city] input.input__control").setValue(city);
         $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
@@ -193,7 +181,6 @@ public class CardDeliveryTests {
     @DisplayName("Не должен отправлять заявку без указания имени")
     void shouldNotSubmitWithEmptyName() {
         open("http://localhost:9999/");
-        String phone = faker.phoneNumber().cellPhone();
 
         $("[data-test-id=city] input.input__control").setValue(city);
         $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
@@ -208,8 +195,6 @@ public class CardDeliveryTests {
     @DisplayName("Не должен подтверждать заказ без номера телефона")
     void shouldNotSubmitWithoutPhone() {
         open("http://localhost:9999/");
-        String firstName = faker.name().firstName().replace("ё", "е");
-        String lastName = faker.name().lastName().replace("ё", "е");
 
         $("[data-test-id=city] input.input__control").setValue(city);
         $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
@@ -224,9 +209,6 @@ public class CardDeliveryTests {
     @DisplayName("Не должен отправлять доставку, если не отмечен чекбокс")
     void shouldNotSubmitWithEmptyCheckBox() {
         open("http://localhost:9999/");
-        String firstName = faker.name().firstName().replace("ё", "е");
-        String lastName = faker.name().lastName().replace("ё", "е");
-        String phone = faker.phoneNumber().cellPhone();
 
         $("[data-test-id=city] input.input__control").setValue(city);
         $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
