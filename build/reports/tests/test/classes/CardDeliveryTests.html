@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">26.908s</div>
+<div class="counter">35.106s</div>
 <p>duration</p>
 </div>
 </td>
@@ -78,8 +78,8 @@
 <span class="code">
 <pre>com.codeborne.selenide.ex.ElementNotFound: Element not found {span.findBy(css class 'input_invalid')}
 Expected: visible
-Screenshot: file:/C:/Users/Public/Documents/patterns/build/reports/tests/1572890352032.0.png
-Page source: file:/C:/Users/Public/Documents/patterns/build/reports/tests/1572890352032.0.html
+Screenshot: file:/C:/Users/Public/Documents/patterns/build/reports/tests/1574799398702.0.png
+Page source: file:/C:/Users/Public/Documents/patterns/build/reports/tests/1574799398702.0.html
 Timeout: 4 s.
 Caused by: com.codeborne.selenide.ex.ElementNotFound: Element not found {span.findBy(css class 'input_invalid')}
 Expected: css class 'input_invalid'
@@ -93,8 +93,8 @@ Timeout: 0 ms.
 	at com.codeborne.selenide.commands.Commands.execute(Commands.java:145)
 	at com.codeborne.selenide.impl.SelenideElementProxy.dispatchAndRetry(SelenideElementProxy.java:99)
 	at com.codeborne.selenide.impl.SelenideElementProxy.invoke(SelenideElementProxy.java:65)
-	at com.sun.proxy.$Proxy15.shouldHave(Unknown Source)
-	at CardDeliveryTests.shouldNotSubmitWithInvalidPhone(CardDeliveryTests.java:149)
+	at com.sun.proxy.$Proxy17.shouldHave(Unknown Source)
+	at CardDeliveryTests.shouldNotSubmitWithInvalidPhone(CardDeliveryTests.java:131)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
@@ -149,10 +149,10 @@ Timeout: 0 ms.
 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)
 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)
-	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:220)
-	at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$6(DefaultLauncher.java:188)
-	at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
-	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:229)
+	at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$6(DefaultLauncher.java:197)
+	at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:211)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:191)
 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
 	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:102)
 	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:82)
@@ -208,67 +208,67 @@ Timeout: 0 ms.
 <tr>
 <td class="success">Должен подтверждать смену даты доставки</td>
 <td class="success">shouldConfirmNewDeliveryDate()</td>
-<td class="success">1.398s</td>
+<td class="success">1.947s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">Не должен отправлять доставку, если не отмечен чекбокс</td>
 <td class="success">shouldNotSubmitWithEmptyCheckBox()</td>
-<td class="success">11.518s</td>
+<td class="success">13.171s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">Не должен отправлять заявку без указания города</td>
 <td class="success">shouldNotSubmitWithEmptyCity()</td>
-<td class="success">0.942s</td>
+<td class="success">1.320s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">Не должен отправлять заявку без указания даты</td>
 <td class="success">shouldNotSubmitWithEmptyDate()</td>
-<td class="success">0.973s</td>
+<td class="success">1.649s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">Не должен отправлять заявку без указания имени</td>
 <td class="success">shouldNotSubmitWithEmptyName()</td>
-<td class="success">1.027s</td>
+<td class="success">1.626s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">Не должен подтверждать заказ при вводе невалидного города</td>
 <td class="success">shouldNotSubmitWithInvalidCity()</td>
-<td class="success">0.994s</td>
+<td class="success">1.473s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">Не должен подтверждать заказ при вводе невалидной даты</td>
 <td class="success">shouldNotSubmitWithInvalidDate()</td>
-<td class="success">1.050s</td>
+<td class="success">1.635s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">Не должен подтверждать заказ при вводе невалидного имени</td>
 <td class="success">shouldNotSubmitWithInvalidName()</td>
-<td class="success">1.181s</td>
+<td class="success">1.749s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="failures">Не должен подтверждать заказ при вводе невалидного номера телефона</td>
 <td class="failures">shouldNotSubmitWithInvalidPhone()</td>
-<td class="failures">5.514s</td>
+<td class="failures">6.819s</td>
 <td class="failures">failed</td>
 </tr>
 <tr>
 <td class="success">Не должен подтверждать заказ без номера телефона</td>
 <td class="success">shouldNotSubmitWithoutPhone()</td>
-<td class="success">1.198s</td>
+<td class="success">1.817s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">Должен успешно отправлять первичную заявку при валидных данных</td>
 <td class="success">shouldSubmitFirstRequest()</td>
-<td class="success">1.113s</td>
+<td class="success">1.900s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -276,28 +276,25 @@ Timeout: 0 ms.
 <div id="tab2" class="tab">
 <h2>Standard error</h2>
 <span class="code">
-<pre>ноя 04, 2019 8:58:45 PM com.codeborne.selenide.drivercommands.LazyDriver getAndCheckWebDriver
+<pre>ноя 26, 2019 11:16:04 PM com.codeborne.selenide.drivercommands.LazyDriver getAndCheckWebDriver
 INFO: No webdriver is bound to current thread: 12 - let's create a new webdriver
-SLF4J: Failed to load class &quot;org.slf4j.impl.StaticLoggerBinder&quot;.
-SLF4J: Defaulting to no-operation (NOP) logger implementation
-SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
-Starting ChromeDriver 78.0.3904.70 (edb9c9f3de0247fd912a77b7f6cae7447f6d3ad5-refs/branch-heads/3904@{#800}) on port 4306
+Starting ChromeDriver 78.0.3904.105 (60e2d8774a8151efa6a00b1f358371b1e0e07ee2-refs/branch-heads/3904@{#877}) on port 26385
 Only local connections are allowed.
 Please protect ports used by ChromeDriver and related test frameworks to prevent access by malicious code.
-[1572890329.627][WARNING]: Timed out connecting to Chrome, retrying...
-ноя 04, 2019 8:58:51 PM org.openqa.selenium.remote.ProtocolHandshake createSession
+[1574799369.386][WARNING]: Timed out connecting to Chrome, retrying...
+ноя 26, 2019 11:16:11 PM org.openqa.selenium.remote.ProtocolHandshake createSession
 INFO: Detected dialect: W3C
-ноя 04, 2019 8:58:51 PM com.codeborne.selenide.webdriver.BrowserResizer adjustBrowserSize
+ноя 26, 2019 11:16:11 PM com.codeborne.selenide.webdriver.BrowserResizer adjustBrowserSize
 INFO: Set browser size to 1366x768
-[1572890333.676][WARNING]: Timed out connecting to Chrome, retrying...
-ноя 04, 2019 8:58:55 PM com.codeborne.selenide.webdriver.WebDriverFactory logBrowserVersion
-INFO: BrowserName=chrome Version=78.0.3904.87 Platform=XP
-ноя 04, 2019 8:58:55 PM com.codeborne.selenide.webdriver.WebDriverFactory createWebDriver
+[1574799373.480][WARNING]: Timed out connecting to Chrome, retrying...
+ноя 26, 2019 11:16:15 PM com.codeborne.selenide.webdriver.WebDriverFactory logBrowserVersion
+INFO: BrowserName=chrome Version=78.0.3904.108 Platform=XP
+ноя 26, 2019 11:16:15 PM com.codeborne.selenide.webdriver.WebDriverFactory createWebDriver
 INFO: Selenide v. 5.3.1
-ноя 04, 2019 8:58:55 PM com.codeborne.selenide.webdriver.WebDriverFactory logSeleniumInfo
+ноя 26, 2019 11:16:15 PM com.codeborne.selenide.webdriver.WebDriverFactory logSeleniumInfo
 INFO: Selenium WebDriver v. 3.141.59 build time: 2018-11-14T08:17:03
-ноя 04, 2019 8:58:55 PM com.codeborne.selenide.drivercommands.CreateDriverCommand createDriver
-INFO: Create webdriver in current thread 12: ChromeDriver -&gt; ChromeDriver: chrome on XP (1fc182831a7d9713c335ed9e272c9174)
+ноя 26, 2019 11:16:15 PM com.codeborne.selenide.drivercommands.CreateDriverCommand createDriver
+INFO: Create webdriver in current thread 12: ChromeDriver -&gt; ChromeDriver: chrome on XP (12b79f8d0c7a54c77166430959f0a8be)
 </pre>
 </span>
 </div>
@@ -309,7 +306,7 @@ INFO: Create webdriver in current thread 12: ChromeDriver -&gt; ChromeDriver: ch
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 5.2.1</a> at 04.11.2019 20:59:13</p>
+<a href="http://www.gradle.org">Gradle 5.2.1</a> at 26.11.2019 23:16:40</p>
 </div>
 </div>
 </body>

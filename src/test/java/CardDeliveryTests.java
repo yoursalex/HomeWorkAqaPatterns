@@ -1,8 +1,8 @@
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.logevents.SelenideLogger;
 import com.github.javafaker.Faker;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.Keys;
 
 import java.time.LocalDate;
@@ -13,52 +13,39 @@ import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class CardDeliveryTests {
-    private String [] cityList = {"Москва", "Майкоп", "Саранск", "Казань", "Барнаул", "Владивосток", "Калининград", "Иваново", "Новосибирск", "Псков", "Анадырь", "Ульяновск", "Тюмень", "Ростов-на-Дону"};
-    private String [] invalidCityList = {"Люберцы", "Малаховка", "Жуковский", "Дзержинский", "NewYork", "5к5534", "№2"};
-    private String city;
-    private String invalidCity;
-    private String deliveryDay;
-    private String invalidDate;
-    private String newDeliveryDay;
+
     private Faker faker;
     private Faker fakerEng;
     private String firstName;
     private String lastName;
     private String phone;
 
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
 
+    @AfterAll
+    static void tearDownAll() {
+        SelenideLogger.removeListener("allure");
+    }
 
     @BeforeEach
     public void setUp() {
         faker = new Faker(new Locale("ru"));
         fakerEng = new Faker(new Locale("en"));
-
-        int cityNumber = (int) (Math.random() * cityList.length);
-        int invalidCityNumber = (int) (Math.random()*invalidCityList.length);
-        city = cityList[cityNumber];
-        invalidCity = invalidCityList[invalidCityNumber];
-
-        LocalDate today = LocalDate.now();
-        LocalDate todayPlusThreeDays = today.plusDays(3);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        deliveryDay = todayPlusThreeDays.format(formatter);
-        invalidDate = today.format(formatter);
-        newDeliveryDay = todayPlusThreeDays.plusDays(5).format(formatter);
-
         firstName = faker.name().firstName().replace("ё", "е");
         lastName = faker.name().lastName().replace("ё", "е");
-
         phone = faker.phoneNumber().cellPhone();
 }
 
     @Test
     @DisplayName("Должен успешно отправлять первичную заявку при валидных данных")
     void shouldSubmitFirstRequest() {
-        open("http://localhost:9999/");
-
-        $("[data-test-id=city] input.input__control").setValue(city);
-        $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
-        $("[data-test-id=date] input.input__control").setValue(deliveryDay);
+        startPage();
+        $("[data-test-id=city] input.input__control").setValue(setCity());
+        cleanDate();
+        $("[data-test-id=date] input.input__control").setValue(setDeliveryDay());
         $("[data-test-id=name] input.input__control").setValue(lastName + " " + firstName);
         $("[data-test-id=phone] input.input__control").setValue(phone);
         $("[data-test-id=agreement]").click();
@@ -69,18 +56,17 @@ public class CardDeliveryTests {
     @Test
     @DisplayName("Должен подтверждать смену даты доставки")
     void shouldConfirmNewDeliveryDate() {
-        open("http://localhost:9999/");
-
-        $("[data-test-id=city] input.input__control").setValue(city);
-        $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
-        $("[data-test-id=date] input.input__control").setValue(deliveryDay);
+        startPage();
+        $("[data-test-id=city] input.input__control").setValue(setCity());
+        cleanDate();
+        $("[data-test-id=date] input.input__control").setValue(setDeliveryDay());
         $("[data-test-id=name] input.input__control").setValue(lastName + " " + firstName);
         $("[data-test-id=phone] input.input__control").setValue(phone);
         $("[data-test-id=agreement]").click();
         $(".button").click();
         $(withText("Успешно!")).waitUntil(Condition.visible, 5000);
         $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
-        $("[data-test-id=date] input.input__control").setValue(newDeliveryDay);
+        $("[data-test-id=date] input.input__control").setValue(setNewDeliveryDay());
         $(".button").click();
         $(withText("Перепланировать")).click();
         $(withText("Успешно!")).waitUntil(Condition.visible, 5000);
@@ -89,11 +75,10 @@ public class CardDeliveryTests {
     @Test
     @DisplayName("Не должен подтверждать заказ при вводе невалидного города")
     void shouldNotSubmitWithInvalidCity() {
-        open("http://localhost:9999/");
-
-        $("[data-test-id=city] input.input__control").setValue(invalidCity);
-        $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
-        $("[data-test-id=date] input.input__control").setValue(deliveryDay);
+        startPage();
+        $("[data-test-id=city] input.input__control").setValue(setInvalidCity());
+        cleanDate();
+        $("[data-test-id=date] input.input__control").setValue(setDeliveryDay());
         $("[data-test-id=name] input.input__control").setValue(lastName + " " + firstName);
         $("[data-test-id=phone] input.input__control").setValue(phone);
         $("[data-test-id=agreement]").click();
@@ -104,11 +89,10 @@ public class CardDeliveryTests {
     @Test
     @DisplayName("Не должен подтверждать заказ при вводе невалидной даты")
     void shouldNotSubmitWithInvalidDate() {
-        open("http://localhost:9999/");
-
-        $("[data-test-id=city] input.input__control").setValue(city);
-        $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
-        $("[data-test-id=date] input.input__control").setValue(invalidDate);
+        startPage();
+        $("[data-test-id=city] input.input__control").setValue(setCity());
+        cleanDate();
+        $("[data-test-id=date] input.input__control").setValue(setInvalidDate());
         $("[data-test-id=name] input.input__control").setValue(lastName + " " + firstName);
         $("[data-test-id=phone] input.input__control").setValue(phone);
         $("[data-test-id=agreement]").click();
@@ -119,13 +103,12 @@ public class CardDeliveryTests {
     @Test
     @DisplayName("Не должен подтверждать заказ при вводе невалидного имени")
     void shouldNotSubmitWithInvalidName() {
-        open("http://localhost:9999/");
+        startPage();
         firstName = fakerEng.name().firstName();
         lastName = fakerEng.name().lastName();
-
-        $("[data-test-id=city] input.input__control").setValue(city);
-        $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
-        $("[data-test-id=date] input.input__control").setValue(deliveryDay);
+        $("[data-test-id=city] input.input__control").setValue(setCity());
+        cleanDate();
+        $("[data-test-id=date] input.input__control").setValue(setDeliveryDay());
         $("[data-test-id=name] input.input__control").setValue(lastName + " " + firstName);
         $("[data-test-id=phone] input.input__control").setValue(phone);
         $("[data-test-id=agreement]").click();
@@ -136,12 +119,11 @@ public class CardDeliveryTests {
     @Test
     @DisplayName("Не должен подтверждать заказ при вводе невалидного номера телефона") //заведомо провалится, т.к.есть баг
     void shouldNotSubmitWithInvalidPhone() {
-        open("http://localhost:9999/");
+        startPage();
         phone = "99911122";
-
-        $("[data-test-id=city] input.input__control").setValue(city);
-        $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
-        $("[data-test-id=date] input.input__control").setValue(deliveryDay);
+        $("[data-test-id=city] input.input__control").setValue(setCity());
+        cleanDate();
+        $("[data-test-id=date] input.input__control").setValue(setDeliveryDay());
         $("[data-test-id=name] input.input__control").setValue(lastName + " " + firstName);
         $("[data-test-id=phone] input.input__control").setValue(phone);
         $("[data-test-id=agreement]").click();
@@ -152,10 +134,9 @@ public class CardDeliveryTests {
     @Test
     @DisplayName("Не должен отправлять заявку без указания города")
     void shouldNotSubmitWithEmptyCity() {
-        open("http://localhost:9999/");
-
-        $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
-        $("[data-test-id=date] input.input__control").setValue(deliveryDay);
+        startPage();
+        cleanDate();
+        $("[data-test-id=date] input.input__control").setValue(setDeliveryDay());
         $("[data-test-id=name] input.input__control").setValue(lastName + " " + firstName);
         $("[data-test-id=phone] input.input__control").setValue(phone);
         $("[data-test-id=agreement]").click();
@@ -166,10 +147,9 @@ public class CardDeliveryTests {
     @Test
     @DisplayName("Не должен отправлять заявку без указания даты")
     void shouldNotSubmitWithEmptyDate() {
-        open("http://localhost:9999/");
-
-        $("[data-test-id=city] input.input__control").setValue(city);
-        $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
+        startPage();
+        $("[data-test-id=city] input.input__control").setValue(setCity());
+        cleanDate();
         $("[data-test-id=name] input.input__control").setValue(lastName + " " + firstName);
         $("[data-test-id=phone] input.input__control").setValue(phone);
         $("[data-test-id=agreement]").click();
@@ -180,11 +160,10 @@ public class CardDeliveryTests {
     @Test
     @DisplayName("Не должен отправлять заявку без указания имени")
     void shouldNotSubmitWithEmptyName() {
-        open("http://localhost:9999/");
-
-        $("[data-test-id=city] input.input__control").setValue(city);
-        $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
-        $("[data-test-id=date] input.input__control").setValue(deliveryDay);
+        startPage();
+        $("[data-test-id=city] input.input__control").setValue(setCity());
+        cleanDate();
+        $("[data-test-id=date] input.input__control").setValue(setDeliveryDay());
         $("[data-test-id=phone] input.input__control").setValue(phone);
         $("[data-test-id=agreement]").click();
         $(".button").click();
@@ -194,11 +173,10 @@ public class CardDeliveryTests {
     @Test
     @DisplayName("Не должен подтверждать заказ без номера телефона")
     void shouldNotSubmitWithoutPhone() {
-        open("http://localhost:9999/");
-
-        $("[data-test-id=city] input.input__control").setValue(city);
-        $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
-        $("[data-test-id=date] input.input__control").setValue(deliveryDay);
+        startPage();
+        $("[data-test-id=city] input.input__control").setValue(setCity());
+        cleanDate();
+        $("[data-test-id=date] input.input__control").setValue(setDeliveryDay());
         $("[data-test-id=name] input.input__control").setValue(lastName + " " + firstName);
         $("[data-test-id=agreement]").click();
         $(".button").click();
@@ -208,15 +186,62 @@ public class CardDeliveryTests {
     @Test
     @DisplayName("Не должен отправлять доставку, если не отмечен чекбокс")
     void shouldNotSubmitWithEmptyCheckBox() {
-        open("http://localhost:9999/");
-
-        $("[data-test-id=city] input.input__control").setValue(city);
-        $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
-        $("[data-test-id=date] input.input__control").setValue(deliveryDay);
+        startPage();
+        $("[data-test-id=city] input.input__control").setValue(setCity());
+        cleanDate();
+        $("[data-test-id=date] input.input__control").setValue(setDeliveryDay());
         $("[data-test-id=name] input.input__control").setValue(lastName + " " + firstName);
         $("[data-test-id=phone] input.input__control").setValue(phone);
         $(".button").click();
         $("form").$("label").shouldHave(Condition.cssClass("input_invalid"));
     }
+
+    public String setCity() {
+        String [] cityList = {"Москва", "Майкоп", "Саранск", "Казань", "Барнаул", "Владивосток", "Калининград", "Иваново", "Новосибирск", "Псков", "Анадырь", "Ульяновск", "Тюмень", "Ростов-на-Дону"};
+        int cityNumber = (int) (Math.random() * cityList.length);
+        String city = cityList[cityNumber];
+        return city;
+    }
+
+    public String setInvalidCity() {
+        String [] invalidCityList = {"Люберцы", "Малаховка", "Жуковский", "Дзержинский", "NewYork", "5к5534", "№2"};
+        int invalidCityNumber = (int) (Math.random()*invalidCityList.length);
+        String invalidCity = invalidCityList[invalidCityNumber];
+        return invalidCity;
+    }
+
+    public String setDeliveryDay() {
+        LocalDate today = LocalDate.now();
+        LocalDate todayPlusThreeDays = today.plusDays(3);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        String deliveryDay = todayPlusThreeDays.format(formatter);
+        return deliveryDay;
+    }
+
+    public String setInvalidDate() {
+        LocalDate today = LocalDate.now();
+        LocalDate todayPlusThreeDays = today.plusDays(3);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        String invalidDate = today.format(formatter);
+        return invalidDate;
+    }
+
+    public String setNewDeliveryDay() {
+        LocalDate today = LocalDate.now();
+        LocalDate todayPlusThreeDays = today.plusDays(3);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        String newDeliveryDay = todayPlusThreeDays.plusDays(5).format(formatter);
+        return newDeliveryDay;
+    }
+
+    public void cleanDate() {
+        $("[data-test-id=date] input.input__control").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
+    }
+
+    public void startPage() {
+        open("http://localhost:9999/");
+    }
+
+
 
 }

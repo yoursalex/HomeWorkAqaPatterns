@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="CardDeliveryTests" tests="11" skipped="0" failures="1" errors="0" timestamp="2019-11-04T17:58:45" hostname="LAPTOP-L88C07KA" time="26.915">
+<testsuite name="CardDeliveryTests" tests="11" skipped="0" failures="1" errors="0" timestamp="2019-11-26T20:16:04" hostname="LAPTOP-L88C07KA" time="35.151">
   <properties/>
-  <testcase name="shouldNotSubmitWithEmptyCheckBox()" classname="CardDeliveryTests" time="11.518"/>
-  <testcase name="shouldSubmitFirstRequest()" classname="CardDeliveryTests" time="1.113"/>
-  <testcase name="shouldNotSubmitWithoutPhone()" classname="CardDeliveryTests" time="1.198"/>
-  <testcase name="shouldNotSubmitWithEmptyCity()" classname="CardDeliveryTests" time="0.942"/>
-  <testcase name="shouldNotSubmitWithEmptyDate()" classname="CardDeliveryTests" time="0.973"/>
-  <testcase name="shouldNotSubmitWithEmptyName()" classname="CardDeliveryTests" time="1.027"/>
-  <testcase name="shouldNotSubmitWithInvalidCity()" classname="CardDeliveryTests" time="0.994"/>
-  <testcase name="shouldNotSubmitWithInvalidDate()" classname="CardDeliveryTests" time="1.05"/>
-  <testcase name="shouldNotSubmitWithInvalidName()" classname="CardDeliveryTests" time="1.181"/>
-  <testcase name="shouldConfirmNewDeliveryDate()" classname="CardDeliveryTests" time="1.398"/>
-  <testcase name="shouldNotSubmitWithInvalidPhone()" classname="CardDeliveryTests" time="5.514">
-    <failure message="com.codeborne.selenide.ex.ElementNotFound: Element not found {span.findBy(css class 'input_invalid')}&#10;Expected: visible&#10;Screenshot: file:/C:/Users/Public/Documents/patterns/build/reports/tests/1572890352032.0.png&#10;Page source: file:/C:/Users/Public/Documents/patterns/build/reports/tests/1572890352032.0.html&#10;Timeout: 4 s.&#10;Caused by: com.codeborne.selenide.ex.ElementNotFound: Element not found {span.findBy(css class 'input_invalid')}&#10;Expected: css class 'input_invalid'&#10;Screenshot: null&#10;Timeout: 0 ms." type="com.codeborne.selenide.ex.ElementNotFound">com.codeborne.selenide.ex.ElementNotFound: Element not found {span.findBy(css class 'input_invalid')}
+  <testcase name="shouldNotSubmitWithEmptyCheckBox()" classname="CardDeliveryTests" time="13.171"/>
+  <testcase name="shouldSubmitFirstRequest()" classname="CardDeliveryTests" time="1.9"/>
+  <testcase name="shouldNotSubmitWithoutPhone()" classname="CardDeliveryTests" time="1.817"/>
+  <testcase name="shouldNotSubmitWithEmptyCity()" classname="CardDeliveryTests" time="1.32"/>
+  <testcase name="shouldNotSubmitWithEmptyDate()" classname="CardDeliveryTests" time="1.649"/>
+  <testcase name="shouldNotSubmitWithEmptyName()" classname="CardDeliveryTests" time="1.626"/>
+  <testcase name="shouldNotSubmitWithInvalidCity()" classname="CardDeliveryTests" time="1.473"/>
+  <testcase name="shouldNotSubmitWithInvalidDate()" classname="CardDeliveryTests" time="1.635"/>
+  <testcase name="shouldNotSubmitWithInvalidName()" classname="CardDeliveryTests" time="1.749"/>
+  <testcase name="shouldConfirmNewDeliveryDate()" classname="CardDeliveryTests" time="1.947"/>
+  <testcase name="shouldNotSubmitWithInvalidPhone()" classname="CardDeliveryTests" time="6.819">
+    <failure message="com.codeborne.selenide.ex.ElementNotFound: Element not found {span.findBy(css class 'input_invalid')}&#10;Expected: visible&#10;Screenshot: file:/C:/Users/Public/Documents/patterns/build/reports/tests/1574799398702.0.png&#10;Page source: file:/C:/Users/Public/Documents/patterns/build/reports/tests/1574799398702.0.html&#10;Timeout: 4 s.&#10;Caused by: com.codeborne.selenide.ex.ElementNotFound: Element not found {span.findBy(css class 'input_invalid')}&#10;Expected: css class 'input_invalid'&#10;Screenshot: null&#10;Timeout: 0 ms." type="com.codeborne.selenide.ex.ElementNotFound">com.codeborne.selenide.ex.ElementNotFound: Element not found {span.findBy(css class 'input_invalid')}
 Expected: visible
-Screenshot: file:/C:/Users/Public/Documents/patterns/build/reports/tests/1572890352032.0.png
-Page source: file:/C:/Users/Public/Documents/patterns/build/reports/tests/1572890352032.0.html
+Screenshot: file:/C:/Users/Public/Documents/patterns/build/reports/tests/1574799398702.0.png
+Page source: file:/C:/Users/Public/Documents/patterns/build/reports/tests/1574799398702.0.html
 Timeout: 4 s.
 Caused by: com.codeborne.selenide.ex.ElementNotFound: Element not found {span.findBy(css class 'input_invalid')}
 Expected: css class 'input_invalid'
@@ -29,8 +29,8 @@ Timeout: 0 ms.
 	at com.codeborne.selenide.commands.Commands.execute(Commands.java:145)
 	at com.codeborne.selenide.impl.SelenideElementProxy.dispatchAndRetry(SelenideElementProxy.java:99)
 	at com.codeborne.selenide.impl.SelenideElementProxy.invoke(SelenideElementProxy.java:65)
-	at com.sun.proxy.$Proxy15.shouldHave(Unknown Source)
-	at CardDeliveryTests.shouldNotSubmitWithInvalidPhone(CardDeliveryTests.java:149)
+	at com.sun.proxy.$Proxy17.shouldHave(Unknown Source)
+	at CardDeliveryTests.shouldNotSubmitWithInvalidPhone(CardDeliveryTests.java:131)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
@@ -85,10 +85,10 @@ Timeout: 0 ms.
 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)
 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)
-	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:220)
-	at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$6(DefaultLauncher.java:188)
-	at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
-	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:229)
+	at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$6(DefaultLauncher.java:197)
+	at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:211)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:191)
 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
 	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:102)
 	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:82)
@@ -129,27 +129,24 @@ Timeout: 0 ms.
 </failure>
   </testcase>
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[ноя 04, 2019 8:58:45 PM com.codeborne.selenide.drivercommands.LazyDriver getAndCheckWebDriver
+  <system-err><![CDATA[ноя 26, 2019 11:16:04 PM com.codeborne.selenide.drivercommands.LazyDriver getAndCheckWebDriver
 INFO: No webdriver is bound to current thread: 12 - let's create a new webdriver
-SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
-SLF4J: Defaulting to no-operation (NOP) logger implementation
-SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
-Starting ChromeDriver 78.0.3904.70 (edb9c9f3de0247fd912a77b7f6cae7447f6d3ad5-refs/branch-heads/3904@{#800}) on port 4306
+Starting ChromeDriver 78.0.3904.105 (60e2d8774a8151efa6a00b1f358371b1e0e07ee2-refs/branch-heads/3904@{#877}) on port 26385
 Only local connections are allowed.
 Please protect ports used by ChromeDriver and related test frameworks to prevent access by malicious code.
-[1572890329.627][WARNING]: Timed out connecting to Chrome, retrying...
-ноя 04, 2019 8:58:51 PM org.openqa.selenium.remote.ProtocolHandshake createSession
+[1574799369.386][WARNING]: Timed out connecting to Chrome, retrying...
+ноя 26, 2019 11:16:11 PM org.openqa.selenium.remote.ProtocolHandshake createSession
 INFO: Detected dialect: W3C
-ноя 04, 2019 8:58:51 PM com.codeborne.selenide.webdriver.BrowserResizer adjustBrowserSize
+ноя 26, 2019 11:16:11 PM com.codeborne.selenide.webdriver.BrowserResizer adjustBrowserSize
 INFO: Set browser size to 1366x768
-[1572890333.676][WARNING]: Timed out connecting to Chrome, retrying...
-ноя 04, 2019 8:58:55 PM com.codeborne.selenide.webdriver.WebDriverFactory logBrowserVersion
-INFO: BrowserName=chrome Version=78.0.3904.87 Platform=XP
-ноя 04, 2019 8:58:55 PM com.codeborne.selenide.webdriver.WebDriverFactory createWebDriver
+[1574799373.480][WARNING]: Timed out connecting to Chrome, retrying...
+ноя 26, 2019 11:16:15 PM com.codeborne.selenide.webdriver.WebDriverFactory logBrowserVersion
+INFO: BrowserName=chrome Version=78.0.3904.108 Platform=XP
+ноя 26, 2019 11:16:15 PM com.codeborne.selenide.webdriver.WebDriverFactory createWebDriver
 INFO: Selenide v. 5.3.1
-ноя 04, 2019 8:58:55 PM com.codeborne.selenide.webdriver.WebDriverFactory logSeleniumInfo
+ноя 26, 2019 11:16:15 PM com.codeborne.selenide.webdriver.WebDriverFactory logSeleniumInfo
 INFO: Selenium WebDriver v. 3.141.59 build time: 2018-11-14T08:17:03
-ноя 04, 2019 8:58:55 PM com.codeborne.selenide.drivercommands.CreateDriverCommand createDriver
-INFO: Create webdriver in current thread 12: ChromeDriver -> ChromeDriver: chrome on XP (1fc182831a7d9713c335ed9e272c9174)
+ноя 26, 2019 11:16:15 PM com.codeborne.selenide.drivercommands.CreateDriverCommand createDriver
+INFO: Create webdriver in current thread 12: ChromeDriver -> ChromeDriver: chrome on XP (12b79f8d0c7a54c77166430959f0a8be)
 ]]></system-err>
 </testsuite>
